@@ -8,24 +8,22 @@ pipeline {
             }
         }
 
-
         stage('docker build local image') {
             steps {
-                sh 'docker build . -t marcorezkallah/nti-cicd-project:v1.0'
+                sh 'docker build . -t marcorezkallah/nti-cicd-project:$BUILD_NUMBER'
             }
         }
 
         stage('docker push local image') {
             steps {
-                sh 'docker push marcorezkallah/nti-cicd-project:v1.0'
+                sh 'docker push marcorezkallah/nti-cicd-project:$BUILD_NUMBER'
             }
         }
 
         stage('Cleaning up') {
             steps {
-                sh "docker rmi marcorezkallah/nti-cicd-project:v1.0"
+                sh 'docker rmi marcorezkallah/nti-cicd-project:$BUILD_NUMBER'
             }
         }
-
     }
 }
