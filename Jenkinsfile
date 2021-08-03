@@ -26,6 +26,12 @@ pipeline {
             }
         }
 
+        stage('push latest') {
+            steps {
+                sh 'docker push marcorezkallah/nti-cicd-project:latest'
+            }
+        }
+
         stage('Cleaning up') {
             steps {
                 sh 'docker rmi marcorezkallah/nti-cicd-project:1.$BUILD_NUMBER'
