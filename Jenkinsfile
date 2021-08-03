@@ -1,37 +1,31 @@
 pipeline {
-    environment {
-        registry = 'marcorezkallah/nti-cicd-project'
-        registryCredential = 'docker-hub-creds'
-        dockerImage = ''
-    }
     agent any
+
     stages {
-        stage('Cloning our Git') {
+        stage('login') {
             steps {
-                checkout scm
-            }
-        }
-        stage('Building our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+                sh 'docker login -u marcorezkallah -p ${DOCKERHUB_PASSWORD}'
             }
         }
 
-        stage('Deploy our image') {
+
+        stage('docker build local image') {
             steps {
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
+                sh 'docker build . -t marcorezkallah/nti-cicd-project:v1.0'
             }
         }
+
+        stage('docker push local image') {
+            steps {
+                sh 'docker push marcorezkallah/nti-cicd-project:v1.0'
+            }
+        }
+
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi marcorezkallah/nti-cicd-project:v1.0"
             }
         }
+
     }
 }
