@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloning our Git') {
             steps {
-                git 'https://github.com/MarcoRezkallah/BakeHouse.git'
+                checkout scm
             }
         }
         stage('Building our image') {
