@@ -10,19 +10,19 @@ pipeline {
 
         stage('docker build local image') {
             steps {
-                sh 'docker build . -t marcorezkallah/nti-cicd-project:1.$BUILD_NUMBER'
+                sh 'docker build . -t marcorezkallah/nti-cicd-project:v1.$BUILD_NUMBER'
             }
         }
 
         stage('docker push local image') {
             steps {
-                sh 'docker push marcorezkallah/nti-cicd-project:1.$BUILD_NUMBER'
+                sh 'docker push marcorezkallah/nti-cicd-project:v1.$BUILD_NUMBER'
             }
         }
 
         stage('docker tag latest') {
             steps {
-                sh 'docker image tag marcorezkallah/nti-cicd-project:1.$BUILD_NUMBER marcorezkallah/nti-cicd-project:latest'
+                sh 'docker image tag marcorezkallah/nti-cicd-project:v1.$BUILD_NUMBER marcorezkallah/nti-cicd-project:latest'
             }
         }
 
@@ -34,7 +34,7 @@ pipeline {
 
         stage('Cleaning up') {
             steps {
-                sh 'docker rmi marcorezkallah/nti-cicd-project:1.$BUILD_NUMBER'
+                sh 'docker rmi marcorezkallah/nti-cicd-project:v1.$BUILD_NUMBER'
                 sh 'docker rmi marcorezkallah/nti-cicd-project:latest'
             }
         }
