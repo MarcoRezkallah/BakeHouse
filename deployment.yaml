@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: web-app
-          image: marcorezkallah/nti-cicd-project:v1.0
+          image: marcorezkallah/nti-cicd-project:v1.13
           imagePullPolicy: 'Always'
           ports:
             - containerPort: 80
